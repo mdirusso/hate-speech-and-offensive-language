@@ -3,23 +3,23 @@
 
 ## ToDo
 
-Nuove modalità per estrarre le feature da un testo.
+- Nuove modalità per estrarre le feature da un testo.
 
 
-Provare metodi diversi di sentimental analysis.
+- Provare metodi diversi di sentimental analysis.
   
 
-Ottimizzare stemmer
+- Ottimizzare stemmer
 
 
-Nel progetto usano GridSearch e Kfold (5) per ottimizzare gli hyperparameters di LogisticRegression.
+- Nel progetto usano GridSearch e Kfold (5) per ottimizzare gli hyperparameters di LogisticRegression.
 Si può fare la stessa cosa su più classificatori, provare tecniche di ensemblement. Ad esempio Bagging per combinare più classificatori.
 
 
-Valutare utilità del feature extraction tramite l'analisi dele Part Of Speech
+- Valutare utilità del feature extraction tramite l'analisi dele Part Of Speech
 
 
-This histogram shows the imbalanced nature of the task - most tweets containing "hate" words as defined by Hatebase were only considered to be offensive by the CF coders. More tweets were considered to be neither hate speech nor offensive language than were considered hate speech.
+- This histogram shows the imbalanced nature of the task - most tweets containing "hate" words as defined by Hatebase were only considered to be offensive by the CF coders. More tweets were considered to be neither hate speech nor offensive language than were considered hate speech.
   -Pensare un modo per bilanciare questa cosa
   
   
