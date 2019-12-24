@@ -30,7 +30,7 @@ Il dataset utilizzato in questo progetto contiene un corpus di tweet estratti da
 
 In seguito, un gruppo di utenti ha assegnato a ogni tweet una tra le seguenti label: Hate, Offensive, Neither. Ogni tweet è stato &quot;votato&quot; da tre o più utenti, e ad ogni tweet è stata assegnata la label definitiva utilizzando una decisione per maggioranza; i tweet per i quali non è stata trovata una maggioranza sono stati scartati dal dataset.
 
- IMMAGINE
+![https://imgur.com/ZsvyAn4](https://imgur.com/ZsvyAn4)
 
 Figura A - Import del dataset e tail() del DataFrame associato
 
