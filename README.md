@@ -58,19 +58,29 @@ Poiché questa distribuzione non omogenea potrebbe ridurre notevolmente il recal
 
 Come anticipato, abbiamo eliminato _circa_ la metà dei tweet offensivi. E&#39; stato realizzato ciò rimuovendo tutti i messaggi di classe 1 (offensive\_language) di indice pari. E&#39; stato preferito questo approccio piuttosto che eliminarli in maniera random per rendere il risultato di questo lavoro deterministico, e non dipendente da quali specifici tweet sono stati esclusi in ogni esecuzione differente.
 
- IMMAGINE
+<br/>
+
+![Imgur](https://i.imgur.com/nbygsbI.png)
 
 Figura C - Implementazione undersampling
 
-IMMAGINE
+<br/>
+
+![Imgur](https://i.imgur.com/nX7x9WN.png) ![Imgur](https://i.imgur.com/0g5JK4P.png)
+
+<br/>
 
 Dal grafico della distribuzione delle classi in df1, notiamo un minore sbilanciamento – seppur consistente – nella ripartizione delle varie label. Abbiamo deciso quindi di utilizzare anche una tecnica di oversampling chiamata SMOTE (Synthetic Minority Oversampling Technique), che non crea duplicati, ma genera degli esemplari che hanno caratteristiche simili agli elementi delle classi in minoranza.
 
 SMOTE realizza ciò scegliendo dei record, e modificandone una feature alla volta con un valore casuale, compatibile con quelli dei neighbors di tale record. Poiché stiamo lavorando con un dataset di tweet, quindi testi, questa operazione può essere svolta solo dopo le operazioni di preprocessing e feature extraction. Inoltre, da alcune ricerche su SMOTE, è risultato che è meglio applicare questo metodo dopo aver separato il dataset in test e training data per evitare overfitting.
 
-IMMAGINE
+<br/>
+
+![Imgur](https://i.imgur.com/RNPG7dJ.png)
 
 Figura D - Risultato oversampling
+
+<br/>
 
 ##
 
@@ -85,42 +95,58 @@ Un&#39;altra tecnica importante è quella di **tokenizzazione** che consiste nel
 
 Infine, l&#39;ultima tecnica per quanto riguarda il preprocessing è lo **stemming** che consiste nel rimuovere il suffisso da ogni parola, in modo tale da ottenere parole uguali da parole simili che hanno lo stesso significato.
 
+<br/>
 
+![Imgur](https://i.imgur.com/GSvfsFk.png)
 
- IMMAGINE
 Figura E - Esempio di tweets
 
-# 3.1  Rimozione punteggiatura, numeri e caratteri speciali
+<br/>
+
+## 3.1  Rimozione punteggiatura, numeri e caratteri speciali
 
 Come anticipato, questi tipi di simboli non danno nessun valore aggiunto per la sentiment analysis, anzi causano rumore all&#39;interno dei testi e quindi vanno rimossi.
 Rimuoviamo anche gli url e le citazioni ad altri utenti, che non sono altresì rilevanti.
 
 Per fare ciò è sono state utilizzate delle espressioni regolari;  i pattern specificati all&#39;interno del testo vengono riconosciuti ed eliminati.
 
- IMMAGINE
+<br/>
+
+![Imgur](https://i.imgur.com/oPjpPV3.png)
 
 Figura F - Funzione di ripulitura testo da url e caratteri speciali
 
+<br/>
+
 Il risultato di questa operazione è una lista di tweet ripulita da tutti gli elementi inutili ai fini della sentiment analysis.
 
- IMMAGINE
+<br/>
 
-# 3.2  Tokenizing e rimozione Stop Words
+![Imgur](https://i.imgur.com/etGHzWt.png)
+
+<br/>
+
+## 3.2  Tokenizing e rimozione Stop Words
 
 Lo step successivo è quello di suddividere il testo in token. Per fare ciò abbiamo utilizzato la libreria nltk (Natural Language Toolkit), che fornisce molti strumenti per quanto riguarda il processing di frasi in linguaggio naturale. Per tokenizzare i tweet abbiamo utilizzato il modulo word\_tokenize di nltk: tramite la funzione tokenize, ogni tweet viene trasformato in un array di tokens.
 
-IMMAGINE
+<br/>
+
+![Imgur](https://i.imgur.com/Iqx3N0u.png)
 
 Figura G - Tokenizzazione dei tweet
 
-
+<br/>
 
 In questa fase abbiamo scelto anche di rimuovere le stop words, per risparmiare un ciclo for su tutto il dataset. Le stop words non danno del significato aggiunto  alle frase, al contrario rischiano di creare confusione all&#39;interno del dataset. L&#39;elenco di stop words è stato importato sempre dalla libreria nltk, e abbiamo aggiunto a tale elenco un&#39;altra stop word, ovvero &quot;rt&quot;, che è molto presente all&#39;interno dei tweet e corrisponde alla parola &quot;retweet&quot;, che non è rilevante ai fini della sentiment analysis.
 
+<br/>
 
+![Imgur](https://i.imgur.com/baeVzEI.png)
 
-IMMAGINE
 Figura H - Stop words
+
+<br/>
 
 In seguito i due grafici delle parole maggiormente presenti all&#39;interno del corpus di tweet. Il primo prende in considerazione tutte le parole, il secondo esclude le stop words. Possiamo notare dal primo grafico che 9 delle 10 parole maggiormente diffuse, sono stop words.
 
