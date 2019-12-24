@@ -376,3 +376,8 @@ Figura R - confusion matrix di BernoulliNaiveBayes, LogisticRegression e Decisio
 In conclusione possiamo affermare che il modello realizzato con DecisionTreeClassifier è abbastanza affidabile, ma non essendo stato effettuato per motivi di hardware a disposizione alcun metodo di tuning degli hyperparameters, è legittimo pensare che anche gli altri due classificatori potessero esprimere migliori potenzialità. Questo è avvalorato dal fatto che, come anticipato, gli autori della ricerca sull&#39; hate speech detection hanno ottenuto risultati simili (migliori) utilizzando LogistcRegression come classificatore.
 
 Sarebbe inoltre interessante come sviluppo futuro utilizzare metodi di ensemble per far collaborare più modelli in modo tale da ottenere predictions ancora più precise soprattutto per quanto riguarda il rilevamento di istanze per quanto riguarda la classe Hate, che presenta le maggiori criticità venendo riconosciuta solo il 60% delle volte circa.
+
+##
+
+
+
