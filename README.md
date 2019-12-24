@@ -1,37 +1,13 @@
-### UNIVERSITA&#39;DEGLI STUDI DELL&#39;INSUBRIA
-
-### DIPARTIMENTO DI SCIENZE TEORICHE E
-
-### APPLICATE CORSO DI LAUREA MAGISTRALE IN INFORMATICA
-
-
-
-
-
-
 
 #
 ### Progetto Data Mining – Hate speech and offensive language recognition.
 
-
-
-
-
 Di Russo Mattia, 725516
 
-##
 
-
-##
-
-##
 
 #
-# 1
-
-##
-Introduzione
-
+# 1 Introduzione
 
 
 Lo scopo del progetto è quello di affrontare un problema di Natural Language Processing, applicando tecniche di sentiment analysis per distinguere in maniera automatica frasi offensive (offensive sentences) da frasi che generano odio (hate sentences). Un problema preliminare che notiamo è quello di dare una definizione formale di hate sentence. In generale possiamo dire che è un tipo di linguaggio che viene indirizzato verso gruppi sociali svantaggiati e che potrebbe promuovere violenza o disordini sociali (razzismo, sessismo, omofobia, ecc. ).
@@ -46,10 +22,7 @@ Analizzeremo nei capitoli successivi le tecniche di sentiment analysis utilizzat
 - --Training e test dei modelli
 
 #
-# 2
-
-##
-Analisi del Dataset
+# 2 Analisi del Dataset
 
 
 
@@ -57,7 +30,7 @@ Il dataset utilizzato in questo progetto contiene un corpus di tweet estratti da
 
 In seguito, un gruppo di utenti ha assegnato a ogni tweet una tra le seguenti label: Hate, Offensive, Neither. Ogni tweet è stato &quot;votato&quot; da tre o più utenti, e ad ogni tweet è stata assegnata la label definitiva utilizzando una decisione per maggioranza; i tweet per i quali non è stata trovata una maggioranza sono stati scartati dal dataset.
 
-# IMMAGINE
+ IMMAGINE
 
 Figura A - Import del dataset e tail() del DataFrame associato
 
@@ -93,11 +66,8 @@ Figura D - Risultato oversampling
 
 ##
 
-#
-# 3
 
-##
-Preprocessing dei Dati
+# 3 Preprocessing dei Dati
 
 
 
@@ -162,13 +132,10 @@ Figura J - Stemming dei token
 
 Abbiamo utilizzato un processo di stemming e non lemmatizzazione, poiché quest&#39;ultimo metodo, sebbene produca sempre parole esistenti nel vocabolario, è  più lento rispetto allo stemmer che non si preoccupa di generare parole di senso compiuto.
 
-##
+
 
 #
-# 4
-
-##
-Feature extraction
+# 4 Feature extraction
 
 
 
@@ -258,18 +225,10 @@ Concateniamo queste matrici di features, creando il nostro dataset definitivo. R
 
 Figura P - Matrice unione di tutte le features estratte
 
-##
+
 
 #
-# 5
-
-##
-
-## Training e test
-
-## dei
-
-## modelli
+# 5 Training e test dei modelli
 
 
 
