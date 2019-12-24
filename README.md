@@ -2,14 +2,17 @@
 #
 ### Progetto Data Mining – Hate speech and offensive language recognition.
 
-Di Russo Mattia 
+<br/>
 
 This project tries to analyze and give alternative solutions to the already existing work:
 
 https://aaai.org/ocs/index.php/ICWSM/ICWSM17/paper/view/15665/14843
+
 https://github.com/t-davidson/hate-speech-and-offensive-language
 
 about hate speech and offensive language recognition.
+
+<br/>
 
 
 #
