@@ -134,6 +134,8 @@ Lo step successivo è quello di suddividere il testo in token. Per fare ciò abb
 
 ![Imgur](https://i.imgur.com/Iqx3N0u.png)
 
+![Imgur](https://i.imgur.com/baeVzEI.png)
+
 Figura G - Tokenizzazione dei tweet
 
 <br/>
@@ -142,7 +144,7 @@ In questa fase abbiamo scelto anche di rimuovere le stop words, per risparmiare 
 
 <br/>
 
-![Imgur](https://i.imgur.com/baeVzEI.png)
+![Imgur](https://i.imgur.com/gXzGe34.png)
 
 Figura H - Stop words
 
@@ -150,19 +152,28 @@ Figura H - Stop words
 
 In seguito i due grafici delle parole maggiormente presenti all&#39;interno del corpus di tweet. Il primo prende in considerazione tutte le parole, il secondo esclude le stop words. Possiamo notare dal primo grafico che 9 delle 10 parole maggiormente diffuse, sono stop words.
 
- IMMAGINE
+<br/>
+
+![Imgur](https://i.imgur.com/zpKptY5.png) ![Imgur](https://i.imgur.com/PzNnX2p.png)
 
 Figura I - Parole più frequenti includendo ed escludendo le stop words
 
+<br/>
 
 
-# 3.3 Stemming
+## 3.3 Stemming
 
 L&#39;ultima fase di questo preprocessing consiste nello stemming, ovvero la pratica di ridurre tutte le parole alla loro radice, rimuovendone quindi il suffisso. Ad esempio, parole come &quot;played&quot;, &quot;playing&quot;, &quot;playin&#39;&quot; vengono ridotte tutte alla loro radice &quot;play&quot;. Anche in questo caso abbiamo utilizzato la libreria nltk attraverso il modulo SnowballStemmer. Esistono altre versioni di stemmer, come ad esempio il PorterStemmer che lavora in maniera molto simile allo Snowball (gli stessi realizzatori di Porter hanno ammesso che lo Snowball può essere considerato come una sua evoluzione), e il LancasterStemmer che abbiamo scelto di non utilizzare perché troppo &quot;aggressivo&quot;.
 
-IMMAGINE
+<br/>
+
+![Imgur](https://i.imgur.com/31WMAif.png)
+
+![Imgur](https://i.imgur.com/5lfJEpS.png)
 
 Figura J - Stemming dei token
+
+<br/>
 
 Abbiamo utilizzato un processo di stemming e non lemmatizzazione, poiché quest&#39;ultimo metodo, sebbene produca sempre parole esistenti nel vocabolario, è  più lento rispetto allo stemmer che non si preoccupa di generare parole di senso compiuto.
 
@@ -181,84 +192,111 @@ Un approccio per fare ciò è la **term frequency-inverse document frequency (TF
 
 - **tf:** è la frequenza di una parola all&#39;interno di un singolo tweet. Si ottiene dividendo il numero di volte che la parola i occorre nel documento j, diviso la lunghezza del documento j.
 
-IMMAGINE
+![Imgur](https://i.imgur.com/0UESkRA.png)
+
+<br/>
 
 - **idf:** indica la quantità di informazione fornita da una parola, in base a quanto è comune tra tutti i tweet. E&#39; il rapporto tra il numero di documenti (tweet) e il numero di volte che la parola i appare tra tutti i documenti.
 
-IMMAGINE
+![Imgur](https://i.imgur.com/pgpRbxh.png)
 
-# 4.1  TfidfVectorizer
+<br/>
+
+## 4.1  TfidfVectorizer
 
 Abbiamo utilizzato la classe TfidfVectorizer del modulo sklearn, che combina le funzionalità fornite da
 
 - **CountVectorizer** : prende un array di documenti (tweets) e costruisce un modello bag-of-words, ossia un dizionario che associa ad ogni parola il numero di volte che questa parola occorre in tutti i documenti.
 - **TfidfTransformer** : prende le frequenze generate da CountVectorizer come input, e le trasforma in tf-idf.
 
- 
+<br/>
+
+![Imgur](https://i.imgur.com/qGFp7LV.png)
 
 Figura K - Matrice tf-idf
+
+<br/>
 
 Instanziamo un oggetto **TfidfVectorizer** settando innanzitutto i parametri **tokenizer** e **preprocessor** , ai quali assegnamo rispettivamente le funzioni di preprocessing e tokenizing, leggermente modificate rispetto a quelle viste in precedenza. Queste funzioni operano esattamente allo stesso modo, ma prendono come input un singolo tweet invece che una lista.
 
 Il parametro **ngram\_range** indica appunto il range di n-grams che si vuole utilizzare. Un n-gram è una sotto sequenza di un documento composta da n parole. Nel nostro caso verranno presi in considerazione unigram, bigram e trigram.
 Infine abbiamo deciso, tramite il parametro **max\_features** , di limitare il numero di features utilizzate per la creazione della matrice a 10000. Questa scelta è stata influenzata dal fatto che un numero più alto di feature portava spesso a un errore di tipo Memory Error durante l&#39;esecuzione del metodo vectorizer.fit\_transform(). Questo valore può essere incrementato se il programma è eseguito su macchine con una RAM più capiente; la nostra intenzione in ogni caso era quella di escludere le features meno rilevanti specificando il parametro max\_features.
 
-# 4.2  POS tag vectorization
+## 4.2  POS tag vectorization
 
 Un altro metodo di feature extraction da un testo è quello del POS tagging (Part Of Speech tagging). Tramite questa tecnica si estrae un array di tags a partire da un documento. Questi tags sono relativi a quale parte del discorso (part of speech) appartiene ogni parola, ad esempio sostantivo, verbo, aggettivo, ecc.
 
- 
+<br/>
+
+![Imgur](https://i.imgur.com/W0DPnbI.png)
 
 Figura L - POS tagging
+
+<br/>
 
 La funzione POS\_tag prende come input un corpus di documenti (tweets) e restituisce un array contenente i POS tags relativi a ogni documento. Per assegnare a ogni parola il suo corrispettivo tag abbiamo utilizzato la funzione pos\_tag della libreria nltk che prende come input un array di token: è stato necessario creare una versione modificata del tokenizer che evitasse di applicare lo stemming alle parole da taggare, poiché dopo aver eseguito lo stemming è impossibile riconoscere ad esempio un nome da un verbo.
 
 Possiamo utilizzare TfidfVectorizer per estrarre le frequenze dei tag relative ad ogni tweet. Evitiamo quindi di calcolare la inverse document frequency in quanto questa informazione non è utile se applicata sui POS tags, le informazioni di questi ultimi sono utili all&#39;interno del contesto di un singolo tweet.
 
+<br/>
 
-
+![Imgur](https://i.imgur.com/hJY5NSs.png)
  
 Figura M - Matrice tf-idf dei POS tag
 
+<br/>
 
-
-# 4.3  Altre features
+## 4.3  Altre features
 
 E&#39; stata realizzata infine una funzione che estrae altre features deducibili direttamente dal testo, ad esempio la lunghezza di ogni tweet, il numero di caratteri del testo preprocessato e non, il numero di sillabe, e altre informazioni di questo tipo. Abbiamo inoltre rilevato se il tweet è un retweet cercandone all&#39;interno la parola &#39;RT&#39; (all&#39;interno del tweet non preprocessato).
 
 Abbiamo utilizzato inoltre un sentiment analyzer del modulo VaderSentiment per aggiungere questo tipo di feature alla nostra matrice.
 
+<br/>
+
+![Imgur](https://i.imgur.com/FU8l1bS.png)
 
 Figura N - Sentiment Analyzer
 
-
+<br/>
 
 Infine abbiamo utilizzato come features anche due parametri che fanno parte dei test di leggibilità Flesch–Kincaid. Ne esistono due tipi di test:
 
 - FLE (Flesch Reading Ease): test che indica quanto è comprensibile un testo. Un alto punteggio a questo test indica una elevata leggibilità, viceversa un basso punteggio corrisponde ad una scarsa leggibilità. Il punteggio è calcolato nel seguente modo:
 
- 
+![Imgur](https://i.imgur.com/iqLU1HN.png)
+
+<br/>
 
 - FK Grade Level: test che usa gli stessi parametri del FLE per calcolare la leggibilità, ma ne è inversamente proporzionale: in questo caso un basso punteggio corrisponde ad un&#39;elevata leggibilità.
 
- 
+![Imgur](https://i.imgur.com/v1THZOX.png)
 
+<br/>
 
 Mostriamo in Figura O la funzione che estrae queste features da ogni tweet.
 
+<br/>
+
+![Imgur](https://i.imgur.com/9l3Z7qL.png)
  
 Figura O - Altre features
 
+<br/>
 
 
-# 4.4  Unire tutte le features
+
+## 4.4  Unire tutte le features
 
 Concateniamo queste matrici di features, creando il nostro dataset definitivo. Ricordiamo che questo dataset non contiene i tweet che erano stati rimossi con underfitting.
 
- 
+<br/>
+
+![Imgur](https://i.imgur.com/Q899xkX.png)
 
 Figura P - Matrice unione di tutte le features estratte
 
+<br/>
 
 
 #
@@ -270,18 +308,28 @@ Per la scelta del modello ideale al nostro scopo sono stati presi in considerazi
 
 - LogisticRegression
 
+![Imgur](https://i.imgur.com/Vzto9Q1.png)
+
+<br/>
  
 - Bernoulli Naïve Bayes
 
+![Imgur](https://i.imgur.com/IKBroVI.png)
+
+<br/>
  
 - DecisionTree
 
- 
+![Imgur](https://i.imgur.com/zJoxoKO.png)
+
+<br/>
 
 - Support Vector Machine
 
- 
+![Imgur](https://i.imgur.com/utObye9.png)
 
+<br/>
+ 
 I modelli sono stati addestrati mediante la funzione cross\_validate, che divide il dataset in un numero di fold passato come parametro e successivamente esegue l&#39;addestramento mediante cross validation.
 
 I modelli sono stati valutati in base a due fattori:
@@ -296,17 +344,25 @@ I modelli probabilistici LogisticRegression (LR) e BernoulliNaiveBayes (BNB) han
 
 Infine, SupportVectorClassifier (SVC) non ha terminato la sua esecuzione in tempi ragionevoli, pertanto abbiamo deciso di non utilizzarlo ma comunque di analizzarne il risultato. Questo tipo di classificatore ha una complessità elevata, soprattutto in presenza di un ingente numero di features e dati da analizzare, quindi non è adatto alle nostre esigenze.
 
+<br/>
+
+![Imgur](https://i.imgur.com/WLyR2Fj.png)
 
 Figura Q - Analisi dei tempi di fitting (l&#39;asse y rappresenta i secondi)
+
+<br/>
 
 Analizziamo adesso i risultati per quanto riguarda l&#39;accuratezza delle predictions. Dalle confusion matrix in Figura R, possiamo notare che BNB e LR presentano risultati simili; BNB è molto più preciso nel classificare i messaggi offensivi e neutri – che non è l&#39;obiettivo di questo progetto – mentre LR riconosce in maniera leggermente più precisa i messaggi di odio, ma con una precisione generale minore.
 
 DTC ha ottenuto i risultati migliori, che sono molto simili a quelli ottenuti dalla ricerca dalla quale questo progetto prende ispirazione, dove però il modello finale utilizzato è Logistic regression. La precisione verso le predizioni sulle classi neither e offensive è molto alta, attestandosi attorno al 90%, mentre quella verso le predizioni di messaggi di odio arriva al 59%.
 
+<br/>
+
+![Imgur](https://i.imgur.com/TTyQUEo.png)  ![Imgur](https://i.imgur.com/8WaLF42.png)  ![Imgur](https://i.imgur.com/O62RrVF.png)
 
 Figura R - confusion matrix di BernoulliNaiveBayes, LogisticRegression e DecisionTreeClassifier
 
-
+<br/>
 
 In conclusione possiamo affermare che il modello realizzato con DecisionTreeClassifier è abbastanza affidabile, ma non essendo stato effettuato per motivi di hardware a disposizione alcun metodo di tuning degli hyperparameters, è legittimo pensare che anche gli altri due classificatori potessero esprimere migliori potenzialità. Questo è avvalorato dal fatto che, come anticipato, gli autori della ricerca sull&#39; hate speech detection hanno ottenuto risultati simili (migliori) utilizzando LogistcRegression come classificatore.
 
