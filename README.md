@@ -30,9 +30,13 @@ Il dataset utilizzato in questo progetto contiene un corpus di tweet estratti da
 
 In seguito, un gruppo di utenti ha assegnato a ogni tweet una tra le seguenti label: Hate, Offensive, Neither. Ogni tweet è stato &quot;votato&quot; da tre o più utenti, e ad ogni tweet è stata assegnata la label definitiva utilizzando una decisione per maggioranza; i tweet per i quali non è stata trovata una maggioranza sono stati scartati dal dataset.
 
+<br/>
+
 ![Imgur](https://i.imgur.com/ZsvyAn4.png)
 
 Figura A - Import del dataset e tail() del DataFrame associato
+
+<br/>
 
 La colonna **Unnamed:0** contiene l&#39;id originale del tweet, che nel dataset importato ha un id minore: questo perché i dati per i quali non è stata trovata una maggioranza di voti sono stati scartati.
 
@@ -42,9 +46,13 @@ Infine, la colonna **tweet** contiene il messaggio del tweet stesso.
 
 E&#39; possibile notare in Figura B una larga discrepanza nel numero di tweet assegnati a ogni label: solo il 5% dei tweet sono codificati come &quot;Hate&quot;, il 16% sono &quot;Neither&quot;, mentre i restanti sono &quot;Offensive&quot;.
 
- IMMAGINE
+<br/>
+
+ ![Imgur](https://i.imgur.com/gwfSD9u.png)
 
 Figura B - Distribuzione delle classi
+
+<br/>
 
 Poiché questa distribuzione non omogenea potrebbe ridurre notevolmente il recall, abbiamo scelto di utilizzare tecniche di sampling per rendere il dataset più equilibrato; per fare ciò, iniziamo applicando undersampling (ovvero eliminando dal dataset elementi che fanno parte della classe più popolata) sui tweet con classe offensive\_language: creiamo un nuovo DataFrame che conterrà circa la metà dei tweet catalogati come offensivi e tutti i tweet delle altre classi. Questa riduzione nel numero dei dati dovrebbe portare alla creazione di un modello che ha una precisione generale più bassa, ma che riconosce in maniera più efficace le occorrenze delle due classi in minoranza. Cerchiamo quindi di trovare un equilibrio tra il recall (percentuale di istanze da riconoscere – nel nostro caso di tipo hate – che sono classificate come tali) e la precisione (percentuale di classificazioni esatte). Migliorare il primo a discapito della seconda, è generalmente una tecnica utile per riconoscere istanze della classe in minoranza.
 
